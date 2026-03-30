@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSI Career Development Resource Hub</title>
+    <title>UMSI Career Development Resource Hub</title>
     <link rel="stylesheet" href="css/html5reset.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -15,10 +15,9 @@
         <nav>
             <ul>
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="resume.html" class="active">Resumes</a></li>
-                <li><a href="networking.html" class="active">Networking & Connections</a></li>
-                <li><a href="job-search.html" class="active">Job Search</a></li>
-                
+                <li><a href="resume.html">Resumes</a></li>
+                <li><a href="networking.html">Networking &amp; Connections</a></li>
+                <li><a href="job-search.html">Job Search</a></li>
             </ul>
         </nav>
     <h1>Welcome to the UMSI Career Development Resource Hub</h1>
@@ -48,19 +47,27 @@
           <img src="images/UMSI_CampusFall_UMSIBackpack_02.jpg" alt="A student wears a UMSI backpack in fall on the drag.">
           <ul>
               <li><a href="resume.html">Resumes</a></li>
-              <li><a href = "networking.html">Networking & Connections</a></li>
+              <li><a href = "networking.html">Networking &amp; Connections</a></li>
               <li><a href = "job-search.html">Job Search</a></li>
               <li><a href="https://www.si.umich.edu/about-umsi/news/umsi-launches-mentorship-program-matching-students-successful-alumni" target="_blank">Talk to a Mentor</a></li>
           </ul>
         </div>
         <div>
           <h3>Most Popular Resources</h3>
-          <ul>
-            <li><a href="https://docs.google.com/document/d/1_1GfDJyVGIgE82MZjVhuWT_aB_2Hcj1NN62FUCXoR_o/edit?tab=t.0" target="_blank">UMSI Resume Guide</a></li>
-            <li><a href="https://umich.instructure.com/courses/137916/pages/attend-an-event" target="_blank">Attend a Career Event</a></li>
-            <li><a href="https://docs.google.com/document/d/18HMt79BU8ovGf9z7_P7No5tuwUS6qHNW5u0sgrepLtE/edit?tab=t.0" target="_blank">Networking Tips</a></li>
-            <li><a href="https://docs.google.com/presentation/d/15n-XqsFEntdbkZz89K-ohf7Or1NnCt5CQNDG-6fh2a0/edit?usp=sharing" target="_blank">Interview Preparation</a></li>
-            <li><a href="https://si-umich.12twenty.com/Login" target="_blank">Career Link: UMSI’s Exclusive Career Portal</a></li>
+          <div class="filter-buttons" role="group" aria-label="Filter resources by category">
+              <button type="button" class="filter-btn active" data-filter="all">All Resources</button>
+              <button type="button" class="filter-btn" data-filter="resume">Resumes</button>
+              <button type="button" class="filter-btn" data-filter="networking">Networking</button>
+              <button type="button" class="filter-btn" data-filter="interview">Interviews</button>
+              <button type="button" class="filter-btn" data-filter="job-search">Job Search</button>
+              <button type="button" class="filter-btn" data-filter="events">Events</button>
+          </div>
+          <ul class="resources-grid" id="resources-list">
+            <li data-category="resume"><a href="https://docs.google.com/document/d/1_1GfDJyVGIgE82MZjVhuWT_aB_2Hcj1NN62FUCXoR_o/edit?tab=t.0" target="_blank">UMSI Resume Guide</a></li>
+            <li data-category="events"><a href="https://umich.instructure.com/courses/137916/pages/attend-an-event" target="_blank">Attend a Career Event</a></li>
+            <li data-category="networking"><a href="https://docs.google.com/document/d/18HMt79BU8ovGf9z7_P7No5tuwUS6qHNW5u0sgrepLtE/edit?tab=t.0" target="_blank">Networking Tips</a></li>
+            <li data-category="interview"><a href="https://docs.google.com/presentation/d/15n-XqsFEntdbkZz89K-ohf7Or1NnCt5CQNDG-6fh2a0/edit?usp=sharing" target="_blank">Interview Preparation</a></li>
+            <li data-category="job-search"><a href="https://si-umich.12twenty.com/Login" target="_blank">Career Link: UMSI’s Exclusive Career Portal</a></li>
           </ul>
         </div>
       </div>
@@ -76,7 +83,35 @@
         UMGPT. (2025). UMGPT ( GPT-4.1 August 25th version) [Large language model]. -->
     </main>
     <footer>
-        <p>University of Michigan School of Information | <a href="https://umich.instructure.com/courses/137916">UMSI Career Development Office </a></p>
+        <p>University of Michigan School of Information | <a href="https://umich.instructure.com/courses/137916">UMSI Career Development Office</a> &copy; <span id="year"></span></p>
     </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Resource filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const resourceItems = document.querySelectorAll('#resources-list li');
+
+        filterButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Update active button
+                filterButtons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                // Show/hide resource items
+                resourceItems.forEach(function(item) {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
